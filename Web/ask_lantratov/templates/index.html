@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block main %}
+	{% if choice_tag != None %}
+		<h3 id="title">
+			Тег: <a href="?tag={{ choice_tag }}">{{ choice_tag }}</a>
+		</h3>
+	{% endif %}
+	{% for question in questions %}
+		<div class="question_img_likes">
+			<div id="img_likes">
+				<img class="img" src="http://lorempixel.com/90/90/nature"></img>
+				<!-- Пропущен элемент -->
+				<div style="text-align: center;">{{ question.author }}</div>
+				<div class="likes">
+					<form>
+						<button class="btn_likes_P"></button>
+						<div class="likes_num">{{ question.rating }}</div>
+						<button class="btn_likes_M "></button>
+					</form>
+				</div>
+			</div>
+			<!-- <img class="img_question" src="uploads/avatar.jpg"></img> -->
+			<div class="question_text_asnwer_tags">
+				<a href="{% url 'answer' question.id %}"><h3 class="h3_question">{{ question.title }}</h3></a>
+				<div class="text text_min_height">
+					{{ question.text }}
+				</div>
+				<div class="answer_span"><a href="{% url 'answer' question.id %}">Читать ответы --></a></div> 				
+				<br />
+				<br />
+				<div class="tags">Теги: 
+				{% for tag in question.tags.all %}
+					<a href="?tag={{ tag.text }}">{{ tag.text }}</a>
+				{% endfor %}
+				</div>
+				
+				<br />
+				<br />
+				<span>Дата создания: {{ question.created|date:"d.m.Y" }}</span>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="pagination">
+		<ul>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">...</a></li>
+			<li><a href="#">5</a></li>
+		</ul>
+	</div>
+{% endblock %}

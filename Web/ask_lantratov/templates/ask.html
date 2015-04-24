@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main %}
+	<div>
+		<h3>Новый вопрос</h3>
+		<table style="width: 605px;">
+			<tr>
+				<td style="width: 150px;">
+					Заголовок
+				</td>
+				<td>
+					<input style="font-family: 'Marck Script', cursive; font-size: 100% !important;" class="question_text" type="text" name="question">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Текст
+				</td>
+				<td>
+					<textarea style="font-family: 'Marck Script', cursive; font-size: 100% !important;" class="question_text" rows="10" name="text_question"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Теги
+				</td>
+				<td>
+					<input style="font-family: 'Marck Script', cursive; font-size: 100% !important;" class="question_text" type="text" name="tags">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					
+				</td>
+				<td>
+					<button type="submit" class="btn">Спросить</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

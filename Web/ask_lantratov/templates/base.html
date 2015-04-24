@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Ask_Lantratov </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="../bootstrap/js/jquery.js"></script>
+		<link href="../marck/marck.css" rel="stylesheet" type="text/css">
+		<link href="../style.css" rel="stylesheet">
+		<!--
+		<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="../bootstrap/js/jquery.js"></script>
+		<link href="../marck/marck.css" rel="stylesheet" type="text/css">
+		<link href="../style.css" rel="stylesheet">
+		-->
+		<!-- <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'> -->
+		<!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+	</head>
+	<body>
+		<div class="container">
+			<div id="head">
+				<div class="head_element back_ground" id="label_and_search">
+					<a id="label" href="/"><h2>AskLantratov</h2></a>
+					<form class="form-search">
+						<input type="text" class="input-medium search-query" id="search_field" placeholder="Поиск">
+						<button type="submit" class="btn">Спросить</button>
+					</form>
+				</div>
+				<div class="head_element back_ground" id="log_in">
+					
+					
+					<img class="avatar" src="http://lorempixel.com/70/90/nature"></img>
+					<div id="user_name_and_user_btn">
+						<div id="user_name">Mr. Pupkin</div>
+						<div class="user_btn"><a href="">Насткройки</a></div>
+						<div class="user_btn"><a href="">Выход</a></div>
+					</div>
+					
+					<!--<div class="user_btn_in left_btn"><a href="">Вход</a></div>
+					<div class="user_btn_in"><a href="">Регистрация</a></div>
+					-->
+					
+				</div> 
+			</div>
+			<div class="" id="line">
+				<hr>
+			</div>
+			<div class="row">
+				<div class="span8" >
+					<div id="main_col">
+						{% block main %}
+							Главный блок
+						{% endblock %}
+					</div>
+				</div>
+				<div class="span4" id="right_col">
+					<div class="inside_right_col">
+						<h3>Популярные теги</h3>
+						<ul class="inline">
+							<li>perl</li>
+							<li>python</li>
+							<li>TechnoPark</li>
+							<li>MySql</li>
+							<li>django</li>
+							<li>Mail.Ru</li>
+							<li>Voloshin</li>
+							<li>Firefox</li>
+						</ul>
+					</div>
+					<div class="inside_right_col">
+						<h3>Лучшие авторы</h3>
+						<ul class="best_authors">
+							<li><a href="#">Mr. Freeman</a></li>
+							<li><a href="#">Dr. House</a></li>
+							<li><a href="#">Bender</a></li>
+							<li><a href="#">Queen Victoria</a></li>
+							<li><a href="#">V. Pupkin</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

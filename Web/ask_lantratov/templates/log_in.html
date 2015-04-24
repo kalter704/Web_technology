@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block main %}
+	<h3>Вход</h3>
+	<div id="error_mess">
+		Не правильный пароль или логин
+	</div>
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label">Логин</label>
+			<div class="controls">
+				<input class="text" type="text" id="inputEmail" placeholder="Логин">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">Пароль</label>
+			<div class="controls">
+				<input class="text" type="password" id="inputPassword" placeholder="Пароль">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn">Вход</button>
+			</div>
+			<div class="controls" style="margin-top: 15px;">
+				<a href="">Зарегистрироваться</a>
+			</div>
+		</div>
+	</form>
+{% endblock %}

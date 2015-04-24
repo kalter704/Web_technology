@@ -1,0 +1,11 @@
+from django.conf.urls import patterns, include, url
+from ask.views import index, ask, answer, login, register
+	
+urlpatterns = patterns('',	
+	url(r'^$', index, name = 'index'),
+    #url(r'^$', index_temp, name = 'index'),
+    url(r'^ask/$', ask, name = 'ask'),
+    url(r'^answer/(\d+)$', answer, name = 'answer'),
+    url(r'^login/$', login, name = 'login'),
+    url(r'^register/$', register, name = 'register'),
+)

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block main %}
+	{% for i in 'qwerty' %}
+		<div>
+			<img src="http://lorempixel.com/90/90/nature"></img>
+			<ing src="uploads/avatar.jpg></ing>
+			<h3>Question</h3>
+		</div>
+	{% endfor %}
+{% endblock %}

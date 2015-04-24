@@ -1,0 +1,36 @@
+from django.db import models
+from django.contrib.auth.models import User
+import datetime
+
+# Create your models here.
+
+class QuestionManager(models.Manager):
+	def popular(self):
+		return self.get_queryset().order_by('-rating')
+	def date(self):
+		return self.get_queryset().order_by('created')
+
+class Question(models.Model):
+	title = models.CharField(max_length = 80)
+	text = models.TextField()
+	author = models.ForeignKey(User)
+	created = models.DateTimeField(default = datetime.datetime.now)
+	rating = models.IntegerField(default = 0)
+	
+	objects = QuestionManager()
+	
+	def __unicode__(self):
+		return self.title
+		
+class Answer(models.Model):
+	question = models.ForeignKey(Question)
+	text = models.TextField()
+	right_answer = models.BooleanField(default = 'False')
+	author = models.ForeignKey(User)
+	
+class Tag(models.Model):
+	question = models.ForeignKey(Question)
+	text = models.CharField(max_length = 30)
+	
+	def __unicode__(self):
+		return self.text

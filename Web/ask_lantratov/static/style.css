@@ -1,0 +1,311 @@
+#main_col {
+	margin-left: 15px;
+}
+
+#right_col {
+	margin-top: 25px;
+	//padding-left: 10px;
+}
+
+.temp {
+	background-color: red;
+}
+
+.back_ground {
+	//background-color: #EFEFEF;
+}
+
+#head {
+	padding: 0px 5px;
+	//overflow: auto;
+	width: 940px;
+	height: 100px;
+	padding-top: 15px;
+}
+
+.head_element{
+	float: left;
+	display: inline-block;
+}
+
+#log_in {
+	width: 300px;
+}
+
+#label_and_search {
+	width: 625px;
+	margin: 15px 5px 0px 0px;
+}
+
+hr {
+	height: 2px;
+	background-color: black;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+ul.inline > li {
+	font-size: 18px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+	padding: 0px;
+}
+
+img.img {
+	width: 90px;
+	height: 90px;
+	border: 1px solid black;
+}
+
+.question_img_likes{
+	border: 2px solid black;
+	margin-bottom: 20px;
+	padding: 7px;
+	overflow: auto;
+}
+
+#temp_elem {
+	width: 70px;
+	height: 30px;
+	border: 1px solid black;
+	margin: 5px auto;
+}
+
+.likes {
+	width: 78px;
+	height: 30px;
+	/*border: 1px solid black;*/
+	margin: 5px auto;
+}
+
+#img_likes {
+	width: 90px;
+	float: left;
+	margin: 0px 5px;
+}
+
+.question_text_asnwer_tags {
+	float: left;
+	margin: 0 0 0 30px;
+	margin-top: -5px;
+	width: 75%;
+}
+
+.h3_question {
+	margin: 0px;
+	font-size: 130%;
+	font-weight: normal;
+}
+
+a {
+	text-decoration: underline;
+}
+
+body, h3 {
+	font-family: 'Marck Script', cursive !important;
+	font-size: 130%;
+}
+
+h2 btn_likes{
+	font-size: 180%;
+	font-weight: normal;
+}
+
+h3 {
+	font-size: 150%;
+	font-size: bolder;
+}
+
+#label {
+	
+}
+
+#label > h2 {
+	display: inline-block;
+	color: black;
+}
+
+form {
+	//float: right;
+	display: inline-block;
+}
+
+.text {
+	font-family: 'Marck Script', cursive;
+	font-size: 100% !important;
+}
+
+.text_min_height {
+	min-height: 110px;
+}
+
+.answer_span {
+	margin: 0px 20px 0px 0px;
+}
+
+.best_authors {
+	list-style-type: none;
+	margin: 0px;
+}
+
+ul.best_authors > li {
+	//font-size: 17px;
+	margin-bottom: 5px;
+}
+
+.inside_right_col {
+	padding-left: 50px;
+}
+
+li > a {
+	margin: 0px 5px;
+}
+
+.answer_span, .tags {
+	display: inline-block;
+	margin-top: 20px;
+}
+
+.pagination ul > li > a {
+	border-width: 1px;
+	border-color: #000;
+}
+
+#search_field {
+	width: 270px;
+	font-family: 'Marck Script', cursive;
+	font-size: 100%;
+}
+
+.btn {
+	font-family: 'Marck Script', cursive;
+	font-size: 100%;
+}
+
+.avatar {
+	float: left;
+	width: 70px;
+	height: 90px;
+	margin-left: 20px;
+}
+
+#user_name_and_user_btn {
+	float: left;
+}
+
+#user_name {
+	margin: 15px;
+}
+
+.user_btn, .user_btn_in {
+	display: inline-block;
+	margin-right: 0px;
+	margin-left: 15px;
+	margin-top: 20px;
+}
+
+.user_btn_in {
+	margin-top: 38px;
+}
+
+.left_btn {
+	margin-left: 50px;
+}
+.question_text {
+	width: 450px;
+}
+
+td {
+	vertical-align: top;
+}
+
+.img_in_answer {
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+.cancel_border {
+	border-width: 0px;
+}
+
+.answer_text {
+	width: 587px;
+}
+
+#img_like_in_answer {
+	width: 100px;
+	float: left;
+	margin: 0px 5px;
+}
+
+label {
+	font-size: 100%;
+}
+
+label.checkbox {
+	margin-top: 30px;
+}
+
+.control-label {
+	text-align: left !important;
+}
+
+.controls {
+	margin-left: 100px !important;
+}
+
+.control-label {
+	width: 100px !important;
+}
+
+#error_mess {
+	color: red;
+	margin-bottom: 15px;
+	margin-top: 15px;
+	//visibility: hidden;
+	//display: none;
+}
+
+.controls_2 {
+	margin-left: 200px !important;
+}
+
+.control-group_2 {
+	//width: 200px !important;
+}
+
+.control-label_2 {
+	width: 200px !important;
+}
+
+#inputAvatar {
+	font-family: 'Marck Script', cursive;
+	font-size: 100% !important;
+}
+
+input[type="file"] {
+	font-family: 'Marck Script', cursive;
+	font-size: 100% !important;
+}
+
+
+.btn_likes_P {
+	background: no-repeat url(/pic.webp) -329px -64px;
+	width: 25px;
+	height: 25px;
+	border: none;
+}
+
+.btn_likes_M {
+	background: no-repeat url(/pic.webp) -325px -431px;
+	width: 25px;
+	height: 25px;
+	border: none;
+}
+
+.likes_num {
+	width: 25px;
+	height: 30px;
+	margin-bottom: -7px;
+}
