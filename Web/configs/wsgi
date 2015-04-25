@@ -1,0 +1,15 @@
+CONFIG = {
+    'mode': 'wsgi',
+    'working_dir': '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/ask_lantratov',
+    #'working_dir': '/home/vasiliy/TechnoPark/Web/ask_lantratov',
+    #'working_dir': '/home/vasiliy/TechnoPark/Web/',
+    'user': 'www-data',
+    'group': 'www-data',
+    'args': (
+        '--bind=127.0.0.1:8081',
+        '--workers=16',
+        '--timeout=60',
+        'ask_lantratov.wsgi:application',
+	#'wsgi:application',
+    ),
+}

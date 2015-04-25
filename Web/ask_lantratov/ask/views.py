@@ -51,7 +51,7 @@ def index(request):
 	if (tag == None):
 		question = Question.objects.date()[:10]
 	else:
-		question = Question.objects.filter(tags__text = tag).order_by('-rating')
+		question = Question.objects.filter(tags__text = tag).order_by('-rating')[:10]
 	context = {
 		#'questions': Question.objects.popular()[:10],
 		#'questions': Question.objects.date()[:10],

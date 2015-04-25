@@ -45,7 +45,15 @@ class UserProfile(models.Model):
 	title = models.CharField(max_length = 20, default = '')	
 	user = models.OneToOneField(User, related_name='profile')
 	rating = models.IntegerField()
-	avatar = models.CharField(max_length = 20, default = '')
-
+	#avatar = models.CharField(max_length = 20, default = '')
+	avatar = models.ImageField(upload_to = 'avatars/', null = True)
+	
+	def get_avatar(self):
+		if (self.avatar):
+			return self.avatar.url
+		else:
+			return '/noAvatar.jpeg'
+	
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.title)
+

@@ -10,16 +10,21 @@ def randomword(start, end):
 	return ''.join(random.choice(string.lowercase) for i in range(random.randint(start, end)))
 	
 def create_qusetion_answer_and_connect_user(how_many):
+	does_NOT_exist_users = ''
 	for j in range(how_many):
 		### User get random
 		user_id = random.randint(1, 10362)
 		try:
 			u = User.objects.get(id=user_id)
 		except:
-			print('################################################################')
-			print('USER DoesNotExist' + str(user_id))
-			print('################################################################')
-			return
+			does_NOT_exist_users = does_NOT_exist_users + str(user_id) + ' '
+			user_id = random.randint(1, 10362)
+			try:
+				u = User.objects.get(id=user_id)
+			except:
+				does_NOT_exist_users = does_NOT_exist_users + str(user_id) + ' '
+				user_id = random.randint(1, 10362)
+				u = User.objects.get(id=user_id)
 		### End User get random
 		
 		### Tag create
@@ -60,10 +65,14 @@ def create_qusetion_answer_and_connect_user(how_many):
 		try:
 			u = User.objects.get(id=user_id)
 		except:
-			print('################################################################')
-			print('USER DoesNotExist' + str(user_id))
-			print('################################################################')
-			return
+			does_NOT_exist_users = does_NOT_exist_users + str(user_id) + ' '
+			user_id = random.randint(1, 10362)
+			try:
+				u = User.objects.get(id=user_id)
+			except:
+				does_NOT_exist_users = does_NOT_exist_users + str(user_id) + ' '
+				user_id = random.randint(1, 10362)
+				u = User.objects.get(id=user_id)
 		### End User get random
 		
 		### Answer create
@@ -83,6 +92,7 @@ def create_qusetion_answer_and_connect_user(how_many):
 		### End asnwer create
 		print('Create: ' + str(j))
 	print('Create: ' + str(how_many))
+	print(does_NOT_exist_users)
 		
 		
 	
@@ -90,5 +100,5 @@ class Command(BaseCommand):
     can_import_settings = True
 
     def handle(self, *args, **options):
-		how_many = 50
+		how_many = 10000
 		create_qusetion_answer_and_connect_user(how_many)
