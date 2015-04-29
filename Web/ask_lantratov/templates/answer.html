@@ -4,6 +4,7 @@
 	<div class="question_img_likes  cancel_border">
 			<div id="img_like_in_answer">
 				<img class="img_in_answer" src="http://lorempixel.com/100/100/nature"></img>
+				<div style="text-align: center; margin-top: 5px;">{{ question.author }}</div>
 				<div class="likes">
 					<form>
 						<button class="btn_likes_P"></button>
@@ -16,11 +17,11 @@
 			<!-- <img class="img_question" src="uploads/avatar.jpg"></img> -->
 			<div class="question_text_asnwer_tags">
 				<h3 class="h3_question">{{ question.title }}</h3>
-				<div class="text" style="min-height: 120px;">
+				<div class="text" style="min-height: 150px;">
 					{{ question.text }}
 				</div>
 				<div class="tags">Теги:{% for tag in question.tags.all %}
-					<a href="../?tag={{ tag.text }}">{{ tag.text }}</a>
+					<a href="../../?tag={{ tag.text }}">{{ tag.text }}</a>
 				{% endfor %}
 				</div>
 			</div>
@@ -30,6 +31,7 @@
 		<div class="question_img_likes">
 			<div id="img_likes">
 				<img class="img" src="http://lorempixel.com/90/90/nature"></img>
+				<div style="text-align: center; margin-top: 5px;">{{ answer.author }}</div>
 				<!--
 				<div class="likes">
 					<form>
@@ -56,6 +58,7 @@
 			</div>
 		</div>
 	{% endfor %}
+	{% include "paginator.html" %}
 	<hr style="margin-bottom: 20px;">
 	<div style="margin-bottom: 50px;">
 		<textarea style="font-family: 'Marck Script', cursive; font-size: 100% !important;" placeholder="Введите ваш ответ" class="answer_text" rows="10" name="text_question"></textarea>

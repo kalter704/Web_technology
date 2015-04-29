@@ -4,6 +4,8 @@ import datetime
 
 # Create your models here.
 
+
+
 class Tag(models.Model):
 	text = models.CharField(max_length = 30)
 	
@@ -56,4 +58,3 @@ class UserProfile(models.Model):
 	
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.title)
-

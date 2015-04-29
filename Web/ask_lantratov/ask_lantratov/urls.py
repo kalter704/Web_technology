@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from ask_lantratov.views import hello
-from ask.views import index, ask, answer, login, register
+from ask.views import index, ask, answer, login, register, none_answer
 #from ask.views import index_temp 
 #from ask.views import home, home2
 from django.contrib import admin
@@ -22,7 +22,8 @@ urlpatterns = patterns('',
     url(r'^$', index, name = 'index'),
     #url(r'^$', index_temp, name = 'index'),
     url(r'^ask/$', ask, name = 'ask'),
-    url(r'^answer/(\d+)$', answer, name = 'answer'),
+    url(r'^answer/(\d+)/$', answer, name = 'answer'),
+    url(r'^answer/$', none_answer, name = 'none_answer'),
     url(r'^login/$', login, name = 'login'),
     url(r'^register/$', register, name = 'register'),
 )

@@ -1,0 +1,41 @@
+<div class="pagination">
+	<ul>
+		<li><a href="?{{ pag.tag }}&page=1"><<</a></li>
+		{% if pag.dotFirst %}
+			<li><a href="?{{ pag.tag }}&page={{ pag.dotFirst }}">...</a></li>
+		{% endif %}
+		{% for i in pag.pr %}
+			<li><a href="?{{ pag.tag }}&page={{ i }}">{{ i }}</a></li>
+		{% endfor %}
+		<li><a href="" style="">{{ pag.number }}</a></li>
+		{% for i in pag.ne %}
+			<li><a href="?{{ pag.tag }}&page={{ i }}">{{ i }}</a></li>
+		{% endfor %}
+		{% if pag.dotLast %}
+			<li><a href="?{{ pag.tag }}&page={{ pag.dotLast }}">...</a></li>
+		{% endif %}
+		<li><a href="?{{ pag.tag }}&page={{ pag.last }}">>></a></li>			
+	</ul>
+</div>
+
+<!--
+<div class="pagination">
+	<ul>
+		<li><a href="?tag={{ pag.tag }}&page=1"><<</a></li>
+		{% if pag.dotFirst %}
+			<li><a href="?tag={{ pag.tag }}&page={{ pag.dotFirst }}">...</a></li>
+		{% endif %}
+		{% for i in pag.pr %}
+			<li><a href="?tag={{ pag.tag }}&page={{ i }}">{{ i }}</a></li>
+		{% endfor %}
+		<li><a href="" style="">{{ pag.number }}</a></li>
+		{% for i in pag.ne %}
+			<li><a href="?tag={{ pag.tag }}&page={{ i }}">{{ i }}</a></li>
+		{% endfor %}
+		{% if pag.dotLast %}
+			<li><a href="?tag={{ pag.tag }}&page={{ pag.dotLast }}">...</a></li>
+		{% endif %}
+		<li><a href="?tag={{ pag.tag }}&page={{ pag.last }}">>></a></li>			
+	</ul>
+</div>
+-->

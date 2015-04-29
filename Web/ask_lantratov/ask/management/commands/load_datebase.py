@@ -7,7 +7,7 @@ class Command(BaseCommand):
     can_import_settings = True
 
     def handle(self, *args, **options):
-		use = int(raw_input('Load Users?(1 - yes, 0 - no): '))
+		#use = int(raw_input('Load Users?(1 - yes, 0 - no): '))
 		prof = int(raw_input('Load Profiles?(1 - yes, 0 - no): '))
 		ques = int(raw_input('Load Question?(1 - yes, 0 - no): '))
 		tag = int(raw_input('Load Tags?(1 - yes, 0 - no): '))
@@ -16,9 +16,9 @@ class Command(BaseCommand):
 		
 		cursor = connection.cursor()
 		print('Load datebase: ')
-		if(use == 1):
-			print('Load Users...')
-			cursor.execute("LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/users.txt' INTO TABLE auth_user FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (password, username, email, is_active);")
+		#if(use == 1):
+		#	print('Load Users...')
+		#	cursor.execute("LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/users.txt' INTO TABLE auth_user FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (password, username, email, is_active, created);")
 			
 		if(prof == 1):
 			print('		Get Profiles...')
@@ -26,7 +26,7 @@ class Command(BaseCommand):
 		
 		if(ques == 1):
 			print('		Get Questions...')
-			cursor.execute("LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/question.txt' INTO TABLE ask_question FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (title, text, author_id, rating);")
+			cursor.execute("LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/question.txt' INTO TABLE ask_question FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (title, text, author_id, rating, created);")
 		
 		if(tag == 1):
 			print('		Get Tags...')
