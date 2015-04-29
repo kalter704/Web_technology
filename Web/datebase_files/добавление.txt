@@ -1,0 +1,17 @@
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/question.txt' INTO TABLE ask_question FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (title, text, author_id, rating, created);
+
+
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/tag.txt' INTO TABLE ask_tag FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (text);
+
+
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/questions_tags.txt' INTO TABLE ask_question_tags FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (question_id, tag_id);
+
+
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/profiles.txt' INTO TABLE ask_userprofile FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (rating, user_id, title);
+
+
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/users.txt' INTO TABLE auth_user FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (password, username, email, is_active, date_joined);
+
+
+
+LOAD DATA LOCAL INFILE '/home/vasiliy/TechnoPark/GitHub/Web_technology/Web/datebase_files/answer.txt' INTO TABLE ask_answer FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' (text, right_answer, user_id, question_id);
