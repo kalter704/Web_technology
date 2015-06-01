@@ -94,3 +94,4 @@ TEMPLATE_DIRS = {
 	BASE_DIR + '/templates',
 }
 
+LOGIN_URL = '/login/'

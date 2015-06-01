@@ -201,11 +201,11 @@ li > a {
 	display: inline-block;
 	margin-right: 0px;
 	margin-left: 15px;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .user_btn_in {
-	margin-top: 38px;
+	margin-top: 25px;
 }
 
 .left_btn {
@@ -265,6 +265,12 @@ label.checkbox {
 	margin-top: 15px;
 	//visibility: hidden;
 	//display: none;
+}
+
+#succes_mess {
+	color: green;
+	margin-bottom: 15px;
+	margin-top: 15px;
 }
 
 .controls_2 {

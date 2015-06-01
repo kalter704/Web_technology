@@ -59,10 +59,12 @@
 		</div>
 	{% endfor %}
 	{% include "paginator.html" %}
-	<hr style="margin-bottom: 20px;">
-	<div style="margin-bottom: 50px;">
-		<textarea style="font-family: 'Marck Script', cursive; font-size: 100% !important;" placeholder="Введите ваш ответ" class="answer_text" rows="10" name="text_question"></textarea>
-		<button type="submit" class="btn">Спросить</button>
-	</div>
+	{% if user.is_authenticated %}
+		<hr style="margin-bottom: 20px;">
+		<div style="margin-bottom: 50px;">
+			<textarea style="font-family: 'Marck Script', cursive; font-size: 100% !important;" placeholder="Введите ваш ответ" class="answer_text" rows="10" name="text_question"></textarea>
+			<button type="submit" class="btn">Ответить</button>
+		</div>
+	{% endif %}
 {% endblock %}
 

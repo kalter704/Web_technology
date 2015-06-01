@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, render_to_response
-from ask.models import Question, Answer, Tag
+from django.shortcuts import render, render_to_response, redirect
+from ask.models import Question, Answer, Tag, UserProfile
+from django.contrib.auth.models import User
 import json
 import datetime
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from pager import paginateObjects, paginatorIndex 
+from forms import ProfileUser
 
 # Create your views here.
 
@@ -43,85 +48,20 @@ def home2(request, pk):
 #		#'questions': questions
 #	}
 #	return render(request, 'index.html', context)
-	
-	
-def paginateObjects(request, all_objects, num_on_page):
-	print(all_objects)
-	paginator = Paginator(all_objects, num_on_page)
-	try:
-		page = request.GET['page']
-	except:
-		page = 1
-	#try:
-	#page = paginator.num_pages
-	try:
-		pag_obj = paginator.page(page)
-	except PageNotAnInteger:
-		pag_obj = paginator.page(1)
-	#except EmptyPage:
-	#	pag_obj = paginator.page(1)
-	#except InvalidPage:
-	#	pag_obj = paginator.page(1)
-	return pag_obj
-
-def getPrev(num):
-	n = []
-	if num - 2 >= 1:
-		n += [str(num - 2)]
-	if num - 1 >= 1:
-		n += [str(num - 1)]
-	return n
-	
-def getNext(num, last):
-	n = []
-	if num + 1 <= last:
-		n += [str(num + 1)]
-	if num + 2 <= last:
-		n += [str(num + 2)]
-	return n
-	
-def dotFirst(num):
-	n = ''
-	if num - 4 >= 1:
-		n += str(num - 4)
-	elif num - 3 >= 1:
-		n += str(num - 3)
-	return n
-	
-def dotLast(num, last):
-	n = ''
-	if num + 4 <= last:
-		n += str(num + 4)
-	elif num + 3 <= last:
-		n += str(num + 3)
-	return n
-	
-def paginatorIndex(num, last, tag = None):
-	if tag == None:
-		tag = ''
-	else:
-		tag = 'tag=' + tag
-	r = {
-		'number': num,
-		'pr': getPrev(num),
-		'ne': getNext(num, last),
-		'dotFirst': dotFirst(num),
-		'dotLast': dotLast(num, last),
-		'last': last,
-		'tag': tag,
-	}
-	return r
 
 def index(request):
 	num_question_on_page = 3
-	try:
-		tag = request.GET['tag']
-	except KeyError:
-		tag = None
+	tag = request.GET.get('tag')
+	#try:
+	#	tag = request.GET['tag']
+	#except KeyError:
+	#	tag = None
 	if (tag == None):
-		question_list = Question.objects.date()
+		#question_list = Question.objects.date()
+		question_list = Question.objects.popular()
 	else:
-		question_list = Question.objects.filter(tags__text = tag).order_by('-rating')
+		#question_list = Question.objects.filter(tags__text = tag).order_by('-rating')
+		question_list = Question.objects.popular_by_tag(tag)
 	questions = paginateObjects(request, question_list, num_question_on_page)
 	'''
 	prev = getPrev(questions.number)
@@ -142,6 +82,7 @@ def index(request):
 #def index(request):
 #	return render(request, 'index.html', ())
 
+@login_required
 def ask(request):
 	return render(request, 'ask.html', ())
 
@@ -169,7 +110,94 @@ def answer(request, pk):
 	return render(request, 'answer.html', context)
 
 def login(request):
-	return render(request, 'log_in.html', ())
+	if request.POST:
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		user = auth.authenticate(username=username, password=password)
+		if user is not None:
+			auth.login(request, user)
+			next_page = request.POST.get('next_page')
+			print(next_page)
+			if (next_page == 'None'):
+				return redirect('/')
+			else:
+				return redirect(next_page)
+		else:
+			return  render(request, 'log_in.html', {'login_error' : True})
+	try:
+		next_page = request.GET['next']
+	except:
+		next_page = None
+	return render(request, 'log_in.html', {'next_page': next_page})
+
+def logout(request):
+	auth.logout(request)
+	return redirect('/')
+
+def isEmptyField(username, email, password):
+	if username == '':
+		return True
+	if email == '':
+		return True
+	if password == '':
+		return True
+	return False
+	
+def checkPassword(password, again_password):
+	if password != again_password:
+		return True
+	return False
+	
+def isUserExist(username):
+	is_exist = True
+	try:
+		u = User.objects.get(username = username)
+	except:
+		is_exist = False
+	return  is_exist
+	
+def createProfileUser(username, email, password):
+	u = User.objects.create_user(username, email, password)
+	up = UserProfile(title = username, user = u, rating = 0, avatar = "NULL")
+	up.save()
 
 def register(request):
-	return render(request, 'register.html', ())
+	form = ProfileUser()
+	
+	if request.POST:
+		username = request.POST.get('username')
+		email = request.POST.get('email')
+		password = request.POST.get('password')
+		again_password = request.POST.get('again_password')
+		avatar = request.POST.get('avatar')
+
+		form.fields['username'].initial = username
+		form.fields['email'].initial = email
+		
+		is_empty_field = False
+		is_wrong_pass = False
+		is_user_exist = False
+		
+		if isEmptyField(username, email, password):
+			is_empty_field = True
+		if checkPassword(password, again_password):
+			is_wrong_pass = True
+		if isUserExist(username):
+			is_user_exist = True
+		print(is_user_exist)
+		
+		if is_empty_field or is_wrong_pass or is_user_exist:
+			context = {
+				'form': form,
+				'username': username,
+				'email': email,
+				'is_empty_field': is_empty_field,
+				'is_wrong_pass': is_wrong_pass,
+				'is_user_exist': is_user_exist
+			}
+			return render(request, 'register.html', context)
+		else:
+			createProfileUser(username, email, password)
+			return render(request, 'register.html', {'register': True})
+		
+	return render(request, 'register.html', {'form': form})

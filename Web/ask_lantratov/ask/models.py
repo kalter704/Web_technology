@@ -16,8 +16,12 @@ class Tag(models.Model):
 class QuestionManager(models.Manager):
 	def popular(self):
 		return self.get_queryset().order_by('-rating')
+		
 	def date(self):
 		return self.get_queryset().order_by('-created')
+		
+	def popular_by_tag(self, tag):
+		return self.get_queryset().filter(tags__text = tag).order_by('-rating')
 
 
 class Question(models.Model):
