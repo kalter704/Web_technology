@@ -9,7 +9,7 @@
 	{% for question in questions %}
 		<div class="question_img_likes">
 			<div id="img_likes">
-				<img class="img" src="http://lorempixel.com/90/90/nature"></img>
+				<img class="img" src="../../uploads/{{ question.author.profile.avatar }}"></img>
 				<!-- Пропущен элемент -->
 				<div style="text-align: center; margin-top: 5px;">{{ question.author }}</div>
 				<div class="likes">

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block main %}
+	<h3>Настройки: </h3>
+		{% if is_empty_field %}
+			<div id="error_mess">
+				Заполните все поля
+			</div>
+		{% endif %}
+		<form class="form-horizontal" action="/settings/" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{% for f in form.visible_fields %}
+				<div class="control-group control-group_2">
+					<label class="control-label control-label_2">{{ f.label }}</label>
+					<div class="controls controls_2">
+						<!--<input class="text" type="text" id="inputlogin" placeholder="Логин">-->
+						{{ f }}
+					</div>
+				</div>
+			{% endfor %}	
+			<div class="control-group">
+				<div class="controls controls_2">
+			<img class="img" src="../uploads/{{ user.profile.avatar }}"></img>
+				</div>
+			</div>	
+			<div class="control-group">
+				<div class="controls controls_2">
+					<button type="submit" class="btn" style="width: 220px;">Сохранить</button>
+				</div>
+			</div>
+			
+		</form>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block main %}
 	<div class="question_img_likes  cancel_border">
 			<div id="img_like_in_answer">
-				<img class="img_in_answer" src="http://lorempixel.com/100/100/nature"></img>
+				<img class="img_in_answer" src="../../uploads/{{ question.author.profile.avatar }}"></img>
 				<div style="text-align: center; margin-top: 5px;">{{ question.author }}</div>
 				<div class="likes">
 					<form>
@@ -30,7 +30,7 @@
 	{% for answer in answers %}
 		<div class="question_img_likes">
 			<div id="img_likes">
-				<img class="img" src="http://lorempixel.com/90/90/nature"></img>
+				<img class="img" src="../../uploads/{{ answer.author.profile.avatar }}"></img>
 				<div style="text-align: center; margin-top: 5px;">{{ answer.author }}</div>
 				<!--
 				<div class="likes">
@@ -60,11 +60,17 @@
 	{% endfor %}
 	{% include "paginator.html" %}
 	{% if user.is_authenticated %}
+		
 		<hr style="margin-bottom: 20px;">
-		<div style="margin-bottom: 50px;">
-			<textarea style="font-family: 'Marck Script', cursive; font-size: 100% !important;" placeholder="Введите ваш ответ" class="answer_text" rows="10" name="text_question"></textarea>
-			<button type="submit" class="btn">Ответить</button>
-		</div>
+		<form class="form-horizontal" action="/answer/{{ question.id }}/" method="post">
+			{% csrf_token %}
+			{% for f in form.visible_fields %}
+			<div style="margin-bottom: 50px;">
+				{{ f }}
+				<button type="submit" class="btn" style="margin-top: 15px;">Ответить</button>
+			</div>
+			{% endfor %}
+		</form>
 	{% endif %}
 {% endblock %}
 

@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse, Http404
-from django.shortcuts import render, render_to_response, redirect
-from ask.models import Question, Answer, Tag
-import json
-import datetime
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 
 def paginateObjects(request, all_objects, num_on_page):
 	#print(all_objects)

@@ -37,11 +37,12 @@
 					
 					
 					{% if user.is_authenticated %}
-						<img class="avatar" src="http://lorempixel.com/70/90/nature"></img>
+						<!--<img class="avatar" src="http://lorempixel.com/70/90/nature"></img>-->
+						<img class="avatar" src="../../uploads/{{ user.profile.avatar }}"></img>
 						<div id="user_name_and_user_btn">
 							<div id="user_name"> {{ user }} </div>
 							<div style="margin-left: 15px;"><a href="/ask/">Новый вопрос</a></div>
-							<div class="user_btn"><a href="">Насткройки</a></div>
+							<div class="user_btn"><a href="/settings/">Насткройки</a></div>
 							<div class="user_btn"><a href="/logout/">Выход</a></div>
 						</div>
 					{% else %}
