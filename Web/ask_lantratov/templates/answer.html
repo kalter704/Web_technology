@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+<script type="text/javascript">
+
+</script>
+
 {% block main %}
 	<div class="question_img_likes  cancel_border">
 			<div id="img_like_in_answer">
@@ -28,7 +32,7 @@
 		</div>
 		<hr>
 	{% for answer in answers %}
-		<div class="question_img_likes">
+		<div class="question_img_likes" id="pos{{ answer.id }}">
 			<div id="img_likes">
 				<img class="img" src="../../uploads/{{ answer.author.profile.avatar }}"></img>
 				<div style="text-align: center; margin-top: 5px;">{{ answer.author }}</div>
@@ -72,5 +76,23 @@
 			{% endfor %}
 		</form>
 	{% endif %}
+	
+	<script>
+		function scrollToElement(theElement) {
+			if (typeof theElement === "string") theElement = document.getElementById(theElement);		
+			var selectedPosX = 0;
+			
+			var selectedPosY = 0;
+			while (theElement != null) {
+				selectedPosX += theElement.offsetLeft;
+				selectedPosY += theElement.offsetTop;
+				theElement = theElement.offsetParent;
+			}
+			window.scrollTo(selectedPosX,selectedPosY);
+		}
+	
+		scrollToElement('pos{{ position }}');
+	</script>
+	
 {% endblock %}
 

@@ -8,7 +8,7 @@ import datetime
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from pager import paginateObjects, paginatorIndex 
+from pager import paginateObjects, paginatorIndex, positionOfAnswer
 from check_form import isEmptyField, checkPassword, isUserExist, createProfileUser, isEmptyQuestionFields
 from forms import ProfileUser, ProfileSettings, NewQuestion, NewAnswer
 
@@ -126,7 +126,8 @@ def ask(request):
 			q.save()
 			id_question = q.id
 			#return render(request, 'answer.html/' + str(id_question) + '/')
-			return HttpResponseRedirect('/answer/' + str(id_question) + '/')
+			#return HttpResponseRedirect('/answer/' + str(id_question) + '/')
+			return redirect('/answer/' + str(id_question) + '/')
 	return render(request, 'ask.html', {'form': form})
 
 def none_answer(request):
@@ -138,27 +139,38 @@ def answer(request, pk):
 	pk = int(pk)
 	question = Question.objects.get(id=pk)
 	
+	new_answer = False
+	position_of_answ = 0
+	
 	if request.POST:
 		text = request.POST.get('text')
 		if text != '':
 			a = Answer(question = question,	text = text, author = request.user)
 			a.save()
+			new_answer = True
+			position_of_answ = a.id
 	
-	answers_list = Answer.objects.filter(question__id=pk) 
+	if new_answer:
+		request.GET = {'page': 'last'}
+	
+	answers_list = Answer.objects.filter(question__id=pk)
 	answers = paginateObjects(request, answers_list, num_answer_on_page)
 	pag = paginatorIndex(answers.number, answers.paginator.num_pages)
-	print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	print pag['dotFirst']
-	print pag['pr']
+	#print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	#print pag['dotFirst']
+	#print pag['pr']
 	#print answers.number
-	print pag['ne']
-	print pag['dotLast']
+	#print pag['ne']
+	#print pag['dotLast']
 	context = {
 		'question': question,
 		'answers': answers,
 		'pag': pag,
-		'form': form
+		'form': form,
+		'new_asnwer': new_answer,
+		'position': position_of_answ
 	}
+	#return redirect('/answer/' + str(pk))
 	return render(request, 'answer.html', context)
 
 def login(request):

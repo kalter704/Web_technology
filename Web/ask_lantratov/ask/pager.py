@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 
+def positionOfAnswer(num_pages, num_answer_on_page):
+	return num_pages % num_answer_on_page
+
 def paginateObjects(request, all_objects, num_on_page):
 	#print(all_objects)
 	paginator = Paginator(all_objects, num_on_page)
@@ -10,14 +13,17 @@ def paginateObjects(request, all_objects, num_on_page):
 		page = 1
 	#try:
 	#page = paginator.num_pages
-	try:
-		pag_obj = paginator.page(page)
-	except PageNotAnInteger:
-		pag_obj = paginator.page(1)
-	#except EmptyPage:
-	#	pag_obj = paginator.page(1)
-	#except InvalidPage:
-	#	pag_obj = paginator.page(1)
+	if page == 'last':
+		pag_obj = paginator.page(paginator.num_pages)
+	else:
+		try:
+			pag_obj = paginator.page(page)
+		except PageNotAnInteger:
+			pag_obj = paginator.page(1)
+		#except EmptyPage:
+		#	pag_obj = paginator.page(1)
+		#except InvalidPage:
+		#	pag_obj = paginator.page(1)
 	return pag_obj
 
 def getPrev(num):
