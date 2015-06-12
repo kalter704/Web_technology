@@ -170,7 +170,7 @@ def login(request):
 			auth.login(request, user)
 			next_page = request.POST.get('next_page')
 			print(next_page)
-			if (next_page == 'None'):
+			if (next_page == 'None' or next_page == ''):
 				return redirect('/')
 			else:
 				return redirect(next_page)
@@ -231,7 +231,12 @@ def register(request):
 							  form.cleaned_data['avatar'] )
 			print('qwesacsd')
 			'''
-			return render(request, 'register.html', {'register': True})
+			
+			
+			return redirect('/')
+			#return render(request, 'register.html', {'register': True})
+			
+			
 			'''
 			print('qwesacsd!!!!!!!!!')
 			print(form.errors['username'])
