@@ -43,6 +43,7 @@ class Answer(models.Model):
 	text = models.TextField()
 	right_answer = models.BooleanField(default = False)
 	author = models.ForeignKey(User)
+	rating = models.IntegerField(default = 0)
 	
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.text)

@@ -24,7 +24,8 @@
 				<div class="text" style="min-height: 150px;">
 					{{ question.text }}
 				</div>
-				<div class="tags">Теги:{% for tag in question.tags.all %}
+				<div class="tags">Теги:
+				{% for tag in question.tags.all %}
 					<a href="../../?tag={{ tag.text }}">{{ tag.text }}</a>
 				{% endfor %}
 				</div>
@@ -35,22 +36,20 @@
 		<div class="question_img_likes" id="pos{{ answer.id }}">
 			<div id="img_likes">
 				<img class="img" src="../../uploads/{{ answer.author.profile.avatar }}"></img>
-				<div style="text-align: center; margin-top: 5px;">{{ answer.author }}</div>
-				<!--
-				<div class="likes">
-					<form>
-						<button class="btn_likes_P"></button>
-						<div class="likes_num">5</div>
-						<button class="btn_likes_M "></button>
-					</form>
-				</div>
-				-->
+				<div style="text-align: center; margin-top: 5px;">{{ answer.author }}</div>				
 			</div>
 			<!-- <img class="img_question" src="uploads/avatar.jpg"></img> -->
 			<div class="question_text_asnwer_tags">
 				<div class="text" style="margin-top: 10px;">
 					{{ answer.text }}
 				</div>
+				<div style="margin-top: 15px;">
+					<form>
+						<button class="btn_likes_P"></button>
+						<div class="likes_num" style="display: inline;">{{ answer.rating }}</div>
+						<button class="btn_likes_M "></button>
+					</form>
+				</div>	
 				<label class="checkbox">
 					{% if answer.right_answer == True %}
 						<input type="checkbox" value="" checked>

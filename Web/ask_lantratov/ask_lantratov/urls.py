@@ -1,3 +1,6 @@
+#import django_cron 
+#django_cron.autodiscover()
+
 from django.conf.urls import patterns, include, url
 from ask_lantratov.views import hello
 from ask.views import index, ask, answer, login, logout, register, none_answer, settings
