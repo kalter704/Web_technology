@@ -3,14 +3,15 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
 from ask.models import Question, Answer, Tag, UserProfile
 from django.contrib.auth.models import User
-import json
-import datetime
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from pager import paginateObjects, paginatorIndex, positionOfAnswer
 from check_form import isEmptyField, checkPassword, isUserExist, createProfileUser, isEmptyQuestionFields
 from forms import ProfileUser, ProfileSettings, NewQuestion, NewAnswer
+
+import json
+import datetime
 
 # Create your views here.
 
@@ -132,6 +133,44 @@ def ask(request):
 
 def none_answer(request):
 	return render(request, 'error404.html', ())
+
+@login_required
+def ques_answer_vote(request):
+	ob_id = request.POST.get('id')
+	action = request.POST.get('action')
+	ob_type = request.POST.get('type')
+	first_r = 0
+	second_r = 0
+	if ob_type == 'question':
+		q = Question.objects.get(id = ob_id)
+		rating = q.rating
+		first_r = rating
+		if action == 'like':
+			rating = rating + 1
+		else:
+			rating = rating - 1	
+		second_r = rating		
+		q.rating = rating
+		q.save()
+	else:
+		a = Answer.objects.get(id = ob_id)
+		rating = a.rating
+		first_r = rating
+		if action == 'like':
+			rating = rating + 1
+		else:
+			rating = rating - 1	
+		second_r = rating
+		a.rating = rating
+		a.save()
+	resp = json.dumps({'resp' : 'done',
+					   'id' : ob_id,
+					   'action' : action,
+					   'type' : ob_type,
+					   'first_rating' : first_r,
+					   'second_rating' : second_r,
+					  })
+	return HttpResponse(resp, content_type='application/json')
 
 def answer(request, pk): 
 	form = NewAnswer()

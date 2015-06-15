@@ -3,7 +3,7 @@
 
 from django.conf.urls import patterns, include, url
 from ask_lantratov.views import hello
-from ask.views import index, ask, answer, login, logout, register, none_answer, settings
+from ask.views import index, ask, answer, login, logout, register, none_answer, settings, ques_answer_vote
 #from ask.views import index_temp 
 #from ask.views import home, home2
 from django.contrib import admin
@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     #url(r'^$', index_temp, name = 'index'),
     url(r'^ask/$', ask, name = 'ask'),
     url(r'^answer/(\d+)/$', answer, name = 'answer'),
+    url(r'^ques_answer/vote/$', ques_answer_vote, name = 'ques_answer_vote'),
     url(r'^answer/$', none_answer, name = 'none_answer'),
     url(r'^login/$', login, name = 'login'),
     url(r'^logout/$', logout, name = 'logout'),

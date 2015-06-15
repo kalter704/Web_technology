@@ -54,6 +54,7 @@ class UserProfile(models.Model):
 	rating = models.IntegerField()
 	#avatar = models.CharField(max_length = 20, default = '')
 	avatar = models.ImageField(upload_to = 'avatars/', null = True)
+	#like = models.ManyToManyField(Likes)
 	
 	def get_avatar(self):
 		if (self.avatar):
@@ -63,3 +64,10 @@ class UserProfile(models.Model):
 	
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.title)
+
+'''
+class Likes(models.Model):
+	like = models.IntegerField(default = 0)
+	answer = models.ForeignKey(Answer)
+	type_like = models.CharField(max_length = 10, default = '')	
+'''

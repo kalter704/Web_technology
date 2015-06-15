@@ -10,11 +10,16 @@
 				<img class="img_in_answer" src="../../uploads/{{ question.author.profile.avatar }}"></img>
 				<div style="text-align: center; margin-top: 5px;">{{ question.author }}</div>
 				<div class="likes">
+					<!--
 					<form>
-						<button class="btn_likes_P"></button>
+						<button class="btn_likes_P js_answer_vote"></button>
 						<div class="likes_num">{{ question.rating }}</div>
-						<button class="btn_likes_M "></button>
+						<button class="btn_likes_M js_answer_vote"></button>
 					</form>
+					-->
+					<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="like" data-type="question"><div class="btn_likes_P"></div></a>
+					<div class="likes_num ques_rating">{{ question.rating }}</div>
+					<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="dislike" data-type="question"><div class="btn_likes_M"></div></a>
 				</div>
 				
 			</div>
@@ -44,11 +49,9 @@
 					{{ answer.text }}
 				</div>
 				<div style="margin-top: 15px;">
-					<form>
-						<button class="btn_likes_P"></button>
-						<div class="likes_num" style="display: inline;">{{ answer.rating }}</div>
-						<button class="btn_likes_M "></button>
-					</form>
+					<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="like" data-type="answer"><div class="btn_likes_P" style="display: inline-block;"></div></a>
+					<div class="likes_num answer_rating{{ answer.id }}" style="display: inline; margin-top: -5px;">{{ answer.rating }}</div>
+					<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="dislike" data-type="answer"><div class="btn_likes_M" style="display: inline-block;"></div></a>
 				</div>	
 				<label class="checkbox">
 					{% if answer.right_answer == True %}
@@ -95,3 +98,32 @@
 	
 {% endblock %}
 
+{% block scripts %}
+	<script>
+		$('.js_answer_vote').on('click', function() {
+			var id = $(this).data('id');
+			var action = $(this).data('action');
+			var type = $(this).data('type');
+			$.ajax({
+				url : '/ques_answer/vote/',
+				method : 'post',
+				data : {
+					id : id,
+					action : action,
+					type : type,
+				},
+			}).done(function(resp) {
+				console.log(resp);
+				console.log(resp.second_rating)
+				if (resp.type == 'question') {
+					console.log('question');
+					$('.ques_rating').html(resp.second_rating);
+				} else {
+					console.log('answer');
+					$('.answer_rating' + resp.id).html(resp.second_rating);
+				}
+			});
+			return false;
+		});
+	</script>
+{% endblock %}
