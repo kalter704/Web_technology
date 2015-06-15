@@ -17,9 +17,13 @@
 						<button class="btn_likes_M js_answer_vote"></button>
 					</form>
 					-->
-					<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="like" data-type="question"><div class="btn_likes_P"></div></a>
-					<div class="likes_num ques_rating">{{ question.rating }}</div>
-					<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="dislike" data-type="question"><div class="btn_likes_M"></div></a>
+					{% if question.author != user %}
+						<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="like" data-type="question"><div class="btn_likes_P"></div></a>
+						<div class="likes_num ques_rating">{{ question.rating }}</div>
+						<a href="#" class="js_answer_vote" data-id="{{ question.id }}" data-action="dislike" data-type="question"><div class="btn_likes_M"></div></a>
+					{% else %}
+						<div class="likes_num ques_rating">{{ question.rating }}</div>
+					{% endif %}
 				</div>
 				
 			</div>
@@ -49,9 +53,13 @@
 					{{ answer.text }}
 				</div>
 				<div style="margin-top: 15px;">
-					<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="like" data-type="answer"><div class="btn_likes_P" style="display: inline-block;"></div></a>
-					<div class="likes_num answer_rating{{ answer.id }}" style="display: inline; margin-top: -5px;">{{ answer.rating }}</div>
-					<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="dislike" data-type="answer"><div class="btn_likes_M" style="display: inline-block;"></div></a>
+					{% if answer.author != user %}
+						<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="like" data-type="answer"><div class="btn_likes_P" style="display: inline-block;"></div></a>
+						<div class="likes_num answer_rating{{ answer.id }}" style="display: inline; margin-top: -5px;">{{ answer.rating }}</div>
+						<a href="#" class="js_answer_vote" data-id="{{ answer.id }}" data-action="dislike" data-type="answer"><div class="btn_likes_M" style="display: inline-block;"></div></a>
+					{% else %}
+						<div class="likes_num answer_rating{{ answer.id }}" style="display: inline; margin-top: -5px;">{{ answer.rating }}</div>
+					{% endif %}
 				</div>	
 				<label class="checkbox">
 					{% if answer.right_answer == True %}
@@ -116,7 +124,6 @@
 				console.log(resp);
 				console.log(resp.second_rating)
 				if (resp.type == 'question') {
-					console.log('question');
 					$('.ques_rating').html(resp.second_rating);
 				} else {
 					console.log('answer');

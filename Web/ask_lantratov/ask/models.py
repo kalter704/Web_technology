@@ -37,7 +37,6 @@ class Question(models.Model):
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.title)
 		
-		
 class Answer(models.Model):
 	question = models.ForeignKey(Question)
 	text = models.TextField()
@@ -47,6 +46,20 @@ class Answer(models.Model):
 	
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.text)
+
+class LikesQuestion(models.Model):
+	user = models.ForeignKey(User)
+	like = models.IntegerField(default = 0) ### 1 - like;    -1 - dislike;
+	id_question = models.IntegerField(default = 0)
+	def __unicode__(self):
+		return (str(self.id))
+
+class LikesAnswer(models.Model):
+	user = models.ForeignKey(User)
+	like = models.IntegerField(default = 0)
+	id_answer = models.IntegerField(default = 0)
+	def __unicode__(self):
+		return (str(self.id))
 	
 class UserProfile(models.Model):
 	title = models.CharField(max_length = 20, default = '')	
@@ -54,7 +67,8 @@ class UserProfile(models.Model):
 	rating = models.IntegerField()
 	#avatar = models.CharField(max_length = 20, default = '')
 	avatar = models.ImageField(upload_to = 'avatars/', null = True)
-	#like = models.ManyToManyField(Likes)
+	#like_answer = models.ManyToManyField(LikesAnswer)
+	#like_question = models.ManyToManyField(LikesQuestion)
 	
 	def get_avatar(self):
 		if (self.avatar):
@@ -65,9 +79,5 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return (str(self.id) + ' ' + self.title)
 
-'''
-class Likes(models.Model):
-	like = models.IntegerField(default = 0)
-	answer = models.ForeignKey(Answer)
-	type_like = models.CharField(max_length = 10, default = '')	
-'''
+
+

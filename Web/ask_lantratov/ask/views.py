@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect
-from ask.models import Question, Answer, Tag, UserProfile
+from ask.models import Question, Answer, Tag, UserProfile, LikesQuestion, LikesAnswer
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage, EmptyPage, PageNotAnInteger
 from django.contrib import auth
@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from pager import paginateObjects, paginatorIndex, positionOfAnswer
 from check_form import isEmptyField, checkPassword, isUserExist, createProfileUser, isEmptyQuestionFields
 from forms import ProfileUser, ProfileSettings, NewQuestion, NewAnswer
-
+from django.db.models.query import EmptyQuerySet
+from likes_functions import getLikeObject, setLikes, getObject
 import json
 import datetime
 
@@ -141,28 +142,25 @@ def ques_answer_vote(request):
 	ob_type = request.POST.get('type')
 	first_r = 0
 	second_r = 0
-	if ob_type == 'question':
-		q = Question.objects.get(id = ob_id)
-		rating = q.rating
-		first_r = rating
-		if action == 'like':
-			rating = rating + 1
-		else:
-			rating = rating - 1	
-		second_r = rating		
-		q.rating = rating
-		q.save()
-	else:
-		a = Answer.objects.get(id = ob_id)
-		rating = a.rating
-		first_r = rating
-		if action == 'like':
-			rating = rating + 1
-		else:
-			rating = rating - 1	
-		second_r = rating
-		a.rating = rating
-		a.save()
+	user = request.user
+	text = 'qwe'
+	ob = getObject(ob_id, ob_type)
+
+	rating = ob.rating
+	first_r = rating
+	
+	like = getLikeObject(ob_type, user, ob_id)
+
+	s = setLikes(action, rating, like)
+
+	second_r = s['rating']
+	rating = s['rating']
+	like.like = s['action']
+	like.save()
+	second_r = rating		
+	ob.rating = rating
+	ob.save()
+
 	resp = json.dumps({'resp' : 'done',
 					   'id' : ob_id,
 					   'action' : action,
