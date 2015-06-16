@@ -134,6 +134,24 @@ def ask(request):
 
 def none_answer(request):
 	return render(request, 'error404.html', ())
+	
+@login_required
+def right_answer(request):
+	ob_id = request.POST.get('id')
+	a = Answer.objects.get(id = ob_id)
+	right = a.right_answer
+	if right == True:
+		right = False
+	else:
+		right = True
+	a.right_answer = right
+	a.save()
+	resp = json.dumps({'resp' : 'done',
+					   'id' : ob_id,
+					   'right' : right,
+				      })
+	return HttpResponse(resp, content_type='application/json')
+
 
 @login_required
 def ques_answer_vote(request):

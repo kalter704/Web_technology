@@ -62,10 +62,11 @@
 					{% endif %}
 				</div>	
 				<label class="checkbox">
+					<!--<input class="" data-rid="{{ answer.id }}" type="checkbox" value="123" checked> asdfawe <br />-->
 					{% if answer.right_answer == True %}
-						<input type="checkbox" value="" checked>
+						<input class="js_rigth_answer js_rigth_answer{{ answer.id }}" data-rid="{{ answer.id }}" type="checkbox" value="" checked {% if user != question.author %} disabled data-act="false" {% else %} data-act="true" {% endif %}>
 					{% else %}
-						<input type="checkbox" value="">
+						<input class="js_rigth_answer js_rigth_answer{{ answer.id }}" data-rid="{{ answer.id }}" type="checkbox" value="" {% if user != question.author %} disabled data-act="false" {% else %} data-act="true" {% endif %}>
 					{% endif %}
 					Правильный ответ
 				</label>
@@ -132,5 +133,33 @@
 			});
 			return false;
 		});
+		
+		$('.js_rigth_answer').on('click', function() {
+			var id = $(this).data('rid');
+			var act = $(this).data('act');
+			
+				$.ajax({
+					url : '/right_answer/',
+					method : 'post',
+					data : {
+						id : id,
+					},
+				}).done(function(resp) {
+					console.log(resp);
+					console.log(resp.right)
+				});
+			
+			<!--return false;-->
+		});
 	</script>
 {% endblock %}
+
+<!--
+if (resp.type == 'question') {
+	$('.ques_rating').html(resp.second_rating);
+} else {
+	console.log('answer');
+	$('.answer_rating' + resp.id).html(resp.second_rating);
+}
+-->
+					
